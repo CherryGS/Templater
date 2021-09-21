@@ -7,3 +7,5 @@
 其中，"0#" 代表此文件是该文件夹的引言，不作为目录的一部分
 
 使用 pandoc 将 md 转换为 latex
+
+使用 xelatex 将 latex 渲染为 pdf
