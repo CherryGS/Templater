@@ -2,7 +2,7 @@ import functools
 import os, re, shutil
 
 dirPath = "E:\CherryGS\TemplateCreater\ACM Template" # 放置 main.tex 的主文件夹
-resPath = os.path.join(dirPath, "resource") # 放置 markdown 格式模板文件，注意不要有标题
+resPath = os.path.join(dirPath, "resource") # 放置 markdown 格式模板文件，尽量不要使用标题
 tempPath =  "E:\CherryGS\TemplateCreater\Test" # 生成临时文件夹
 outPath = "E:\CherryGS\TemplateCreater\ACM Template" # pdf 生成文件夹
 orderPattern = "^[0-9]\d*#" # 正则，删除用来排序的部分文件名
@@ -33,8 +33,9 @@ line = in_pointer.readline()
 
 cnt = 0 # 防止重复
 
-def convert():
-    pass
+def cv(txt :str):
+    txt = txt.replace("_", "\_")
+    return txt
 
 def cmp(a, b):
     r1 = re.search(numPattern, a).group()
@@ -57,14 +58,14 @@ def sol(dep, path):
         
         # 特殊标志，代表该文件为文件夹的前言
         if patt != '0#': 
-            out_pointer.write(content[dep].format(Rname) + '\n')
+            out_pointer.write(cv(content[dep].format(Rname) + '\n'))
         if os.path.isdir(pth):
             sol(dep+1, pth)
         else:
             cnt += 1
             fPath = os.path.join(tempPath, str(cnt) + Rname + '.tex') # 通过 cnt 防止重复
             os.system(pandocCMD.format(pth, fPath)) # 转换 markdown 为 latex
-            out_pointer.write("\input{{{}}} \n ".format(str(cnt) + Rname + '.tex'))
+            out_pointer.write(cv("\input{{{}}} \n ".format(str(cnt) + Rname + '.tex')))
 
 def del_others(path):
     files = os.listdir(path)
