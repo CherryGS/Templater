@@ -1,0 +1,41 @@
+\documentclass[UTF8, openany]{ctexbook}
+\title{ACM Template} % 标题
+\author{DUT ACM Lab} % 作者
+\date{\today} % 日期
+
+\usepackage{fontspec}
+\usepackage{color,xcolor}
+\usepackage{listings}
+\lstset{
+    numbers=left, % 设置行号显示
+    frame=single, % 设置代码边框
+    keywordstyle=\color{blue}, % 设置关键字颜色
+    commentstyle=\color{mygreen}, % 设置注释颜色
+    breaklines=true, % automatic line breaking only at whitespace
+}
+
+\usepackage[colorlinks]{hyperref}
+\hypersetup{
+    linkcolor = red, % 设置可跳转链接颜色
+}
+
+\definecolor{mygreen}{rgb}{0,0.6,0} % 注释颜色
+
+\setsansfont{Source Code Pro} % 设置英文等宽字体
+\setmainfont{Source Code Pro} % 设置主要英文字体
+\setCJKmonofont{微软雅黑} % 设置中文字题
+
+\setcounter{secnumdepth}{5} % 设置目录显示深度
+\setcounter{tocdepth}{5}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+\setcounter{page}{1}
+
+%--key--
+
+\end{document}
