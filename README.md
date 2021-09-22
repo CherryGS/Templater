@@ -9,3 +9,5 @@
 使用 pandoc 将 md 转换为 latex
 
 使用 xelatex 将 latex 渲染为 pdf
+
+如果文件名中含有保留词，请在 main.py 中的 cv 函数中添加
