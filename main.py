@@ -55,7 +55,6 @@ def sol(dep, path):
     lis.sort(key=functools.cmp_to_key(cmp))
     for pth in lis:
         pth = os.path.join(path, pth)
-        print(pth)
         name = os.path.split(pth)[1]
         patt = re.search(orderPattern, name).group()
         name = name.replace(patt, '')
