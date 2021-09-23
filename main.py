@@ -8,13 +8,19 @@ outPath = dirPath # pdf 生成文件夹
 orderPattern = "^[0-9]\d*#" # 正则，删除用来排序的部分文件名
 numPattern = "^[0-9]\d*" # 正则，找开头的数字，其中，数字0代表该文件夹的前言
 keyStr = "%--key--" # 在此之后开始插入内容
-pandocCMD = "pandoc \"{}\" --listings -o \"{}\"" # md 转换 latex
+pandocCMD = "pandoc \"{}\" --listings --shift-heading-level-by={} -o \"{}\"" # md 转换 latex
 compileCMD = "xelatex main.tex" # 编译 tex 的指令
 
 content = [
     "\chapter{{{}}}", "\section{{{}}}", "\subsection{{{}}}", "\subsubsection{{{}}}", "\paragraph{{{}}}"
 ]
 # latex 目录结构，目前最多支持5层
+
+rpDic = {
+    "_": "\_"
+} # 替换文件名中的 latex 关键字
+
+cnt = 0 # 防止重复
 
 def check_and_create(path):
     if not os.path.exists(path):
@@ -30,12 +36,6 @@ check_and_create(outPath)
 out_pointer = open(os.path.join(tempPath, "main.tex"), "w", encoding="UTF8")
 in_pointer = open(os.path.join(dirPath, "main.tex"), "r", encoding="UTF8")
 line = in_pointer.readline()
-
-cnt = 0 # 防止重复
-
-rpDic = {
-    "_": "\_"
-} # 替换文件名中的 latex 关键字
 
 def cv(txt: str):
     for i in rpDic.items():
@@ -69,7 +69,7 @@ def sol(dep, path):
         else:
             cnt += 1
             fPath = os.path.join(tempPath, str(cnt) + Rname + '.tex') # 通过 cnt 防止重复
-            os.system(pandocCMD.format(pth, fPath)) # 转换 markdown 为 latex
+            os.system(pandocCMD.format(pth, dep-1, fPath)) # 转换 markdown 为 latex
             out_pointer.write(cv("\input{{{}}} \n ".format(str(cnt) + Rname + '.tex')))
 
 def del_others(path):
@@ -90,6 +90,7 @@ def compile(path, num, cl):
         os.remove(pdf)
     shutil.move("main.pdf", path)
     if cl:
+        # 是否删除临时文件
         del_others(tempPath)
 
 
@@ -103,5 +104,7 @@ if __name__ == "__main__" :
     in_pointer.close()
     out_pointer.close()
     compile(outPath, 2, 1)
+
+    # 删除临时文件夹
     os.chdir(resPath)
     shutil.rmtree(tempPath)
