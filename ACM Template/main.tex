@@ -3,6 +3,9 @@
 \author{DUT ACM Lab} % 作者
 \date{\today} % 日期
 
+\newcommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}} % pandoc 模板更新加入
+
 \usepackage[a4paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}  
 \usepackage{fontspec}
 \usepackage{color,xcolor}
@@ -26,8 +29,8 @@
 \setmainfont{Source Code Pro} % 设置主要英文字体
 \setCJKmonofont{微软雅黑} % 设置中文字题
 
-\setcounter{secnumdepth}{5} % 设置目录显示深度
-\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5} % 设置显示深度
+\setcounter{tocdepth}{2} % 设置目录深度
 
 \begin{document}
 
