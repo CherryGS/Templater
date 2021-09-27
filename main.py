@@ -1,41 +1,11 @@
 import functools
 import os, re, shutil
 
-dirPath = "E:\CherryGS\TemplateCreater\ACM Template" # 放置 main.tex 的主文件夹
-resPath = os.path.join(dirPath, "resource") # 放置 markdown 格式模板文件，尽量不要使用标题
-tempPath =  "E:\CherryGS\TemplateCreater\Test" # 生成临时文件夹
-outPath = dirPath # pdf 生成文件夹
-orderPattern = "^[0-9]\d*#" # 正则，删除用来排序的部分文件名
-numPattern = "^[0-9]\d*" # 正则，找开头的数字，其中，数字0代表该文件夹的前言
-keyStr = "%--key--" # 在此之后开始插入内容
-pandocCMD = "pandoc \"{}\" --listings --shift-heading-level-by={} -o \"{}\"" # md 转换 latex
-compileCMD = "xelatex main.tex" # 编译 tex 的指令
-
-content = [
-    "\chapter{{{}}}", "\section{{{}}}", "\subsection{{{}}}", "\subsubsection{{{}}}", "\paragraph{{{}}}"
-]
-# latex 目录结构，目前最多支持5层
-
-rpDic = {
-    "_": "\_"
-} # 替换文件名中的 latex 关键字
-
-cnt = 0 # 防止重复
-
 def check_and_create(path):
     if not os.path.exists(path):
         os.makedirs(path)
         return 1
     return 0
-
-check_and_create(dirPath)
-check_and_create(resPath)
-check_and_create(tempPath)
-check_and_create(outPath)
-
-out_pointer = open(os.path.join(tempPath, "main.tex"), "w", encoding="UTF8")
-in_pointer = open(os.path.join(dirPath, "main.tex"), "r", encoding="UTF8")
-line = in_pointer.readline()
 
 def cv(txt: str):
     for i in rpDic.items():
@@ -92,8 +62,38 @@ def compile(path, num, cl):
         # 是否删除临时文件
         del_others(tempPath)
 
+# --------------------------------------------------- #
+
+dirPath = "E:\CherryGS\TemplateCreater\ACM Template" # 放置 main.tex 的主文件夹
+resPath = os.path.join(dirPath, "resource") # 放置 markdown 格式模板文件，尽量不要使用标题
+tempPath =  "E:\CherryGS\TemplateCreater\Test" # 生成临时文件夹
+outPath = dirPath # pdf 生成文件夹
+orderPattern = "^[0-9]\d*#" # 正则，删除用来排序的部分文件名
+numPattern = "^[0-9]\d*" # 正则，找开头的数字，其中，数字0代表该文件夹的前言
+keyStr = "%--key--" # 在此之后开始插入内容
+pandocCMD = "pandoc \"{}\" --listings --shift-heading-level-by={} -o \"{}\"" # md 转换 latex
+compileCMD = "xelatex main.tex" # 编译 tex 的指令
+
+content = [
+    "\chapter{{{}}}", "\section{{{}}}", "\subsection{{{}}}", "\subsubsection{{{}}}", "\paragraph{{{}}}"
+]
+# latex 目录结构，目前最多支持5层
+
+rpDic = {
+    "_": "\_"
+} # 替换文件名中的 latex 关键字
+
+cnt = 0 # 防止重复
 
 if __name__ == "__main__" :
+    check_and_create(dirPath)
+    check_and_create(resPath)
+    check_and_create(tempPath)
+    check_and_create(outPath)
+
+    out_pointer = open(os.path.join(tempPath, "main.tex"), "w", encoding="UTF8") # 输出文件指针
+    in_pointer = open(os.path.join(dirPath, "main.tex"), "r", encoding="UTF8") # 输入文件指针
+    line = in_pointer.readline()
     while line:
         if line.strip() == keyStr:
             sol(0, resPath)
