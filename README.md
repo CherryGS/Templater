@@ -11,3 +11,5 @@
 使用 xelatex 将 latex 渲染为 pdf
 
 如果文件名中含有保留词，请在 main.py 中的 rpDic 字典中添加
+
+本机使用软件版本见 version.txt
