@@ -102,8 +102,8 @@ if __name__ == "__main__" :
         line = in_pointer.readline()
     in_pointer.close()
     out_pointer.close()
-    # compile(outPath, 2, 1)
+    compile(outPath, 2, 1)
 
     # 删除临时文件夹
-    # os.chdir(resPath)
-    # shutil.rmtree(tempPath)
+    os.chdir(resPath)
+    shutil.rmtree(tempPath)
