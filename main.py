@@ -64,9 +64,9 @@ def compile(path, num, cl):
 
 # --------------------------------------------------- #
 
-dirPath = "E:\CherryGS\TemplateCreater\ACM Template" # 放置 main.tex 的主文件夹
+dirPath = "E:\CherryGS\Templater\ACM Template" # 放置 main.tex 的主文件夹
 resPath = os.path.join(dirPath, "resource") # 放置 markdown 格式模板文件，尽量不要使用标题
-tempPath =  "E:\CherryGS\TemplateCreater\Test" # 生成临时文件夹
+tempPath =  "E:\CherryGS\Templater" + "\Test" # 生成临时文件夹
 outPath = dirPath # pdf 生成文件夹
 orderPattern = "^[0-9]\d*#" # 正则，删除用来排序的部分文件名
 numPattern = "^[0-9]\d*" # 正则，找开头的数字，其中，数字0代表该文件夹的前言
