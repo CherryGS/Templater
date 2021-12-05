@@ -1,6 +1,8 @@
 import functools
 import os, re, shutil
 
+# ---------------------------- function ---------------------------- #
+
 def check_and_create(path):
     if not os.path.exists(path):
         os.makedirs(path)
@@ -63,9 +65,9 @@ def compile(path, num, cl):
         # 是否删除临时文件
         del_others(tempPath)
 
-# --------------------------------------------------- #
+# ---------------------------- config ---------------------------- #
 
-dirPath = "E:\CherryGS\Templater\ACM Template" # 放置 main.tex 的主文件夹
+dirPath = "C:\Users\TickT\iCloudDrive\iCloud~md~obsidian\ACM\ACM Template" # 放置 main.tex 的主文件夹
 resPath = os.path.join(dirPath, "resource") # 放置 markdown 格式模板文件，尽量不要使用标题
 tempPath =  "E:\CherryGS\Templater" + "\Test" # 生成临时文件夹
 outPath = dirPath # pdf 生成文件夹
@@ -85,6 +87,8 @@ rpDic = {
 } # 替换文件名中的 latex 关键字
 
 cnt = 0 # 防止重复
+
+# ---------------------------- main ---------------------------- #
 
 if __name__ == "__main__" :
     check_and_create(dirPath)
@@ -108,4 +112,3 @@ if __name__ == "__main__" :
     # 删除临时文件夹
     os.chdir(resPath)
     shutil.rmtree(tempPath)
-##
