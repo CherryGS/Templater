@@ -24,6 +24,7 @@ def sol(dep, path):
     lis = os.listdir(path)
     lis.sort(key=functools.cmp_to_key(cmp))
     for pth in lis:
+        if pth.startswith('.'): continue
         pth = os.path.join(path, pth)
         name = os.path.split(pth)[1]
         patt = re.search(orderPattern, name).group()
