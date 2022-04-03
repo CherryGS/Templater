@@ -1,3 +1,4 @@
+# type: ignore
 import functools
 import os, re, shutil
 
@@ -42,7 +43,7 @@ def sol(dep, path):
             cnt += 1
             fPath = os.path.join(tempPath, str(cnt) + Rname + '.tex') # 通过 cnt 防止重复
             os.system(pandocCMD.format(pth, dep-1, fPath)) # 转换 markdown 为 latex
-            out_pointer.write(cv("\input{{{}}} \n ".format(str(cnt) + Rname + '.tex')))
+            out_pointer.write(cv("\\input{{{}}} \n ".format(str(cnt) + Rname + '.tex')))
 
 def del_others(path):
     files = os.listdir(path)
@@ -67,24 +68,42 @@ def compile(path, num, cl):
 
 # ---------------------------- config ---------------------------- #
 
-dirPath = r"C:\Users\TickT\iCloudDrive\iCloud~md~obsidian\ACM\ACM Template" # 放置 main.tex 的主文件夹
-resPath = os.path.join(dirPath, "resource") # 放置 markdown 格式模板文件，尽量不要使用标题
-tempPath =  r"E:\CherryGS\Templater\Test" # 生成临时文件夹
-outPath = dirPath # pdf 生成文件夹
-orderPattern = "^[0-9]\d*#" # 正则，删除用来排序的部分文件名
-numPattern = "^[0-9]\d*" # 正则，找开头的数字，其中，数字0代表该文件夹的前言
-keyStr = "%--key--" # 在此之后开始插入内容
-pandocCMD = "pandoc \"{}\" --listings --shift-heading-level-by={} -o \"{}\"" # md 转换 latex
-compileCMD = "xelatex main.tex" # 编译 tex 的指令
+# 放置 main.tex 的主文件夹
+dirPath = r"C:\Users\TickT\iCloudDrive\iCloud~md~obsidian\ACM\ACM Template" 
 
+# 放置 markdown 格式模板文件，尽量不要使用标题
+resPath = os.path.join(dirPath, "resource")
+
+# 生成临时文件夹
+tempPath =  r"E:\CherryGS\Templater\Test" 
+
+# pdf 生成文件夹
+outPath = dirPath 
+
+# 正则，删除用来排序的部分文件名
+orderPattern = r"^[0-9]\d*#" 
+
+# 正则，找开头的数字，其中，数字0代表该文件夹的前言
+numPattern = r"^[0-9]\d*" 
+
+# 在此之后开始插入内容
+keyStr = "%--key--" 
+
+# md 转换 latex 的命令行指令
+pandocCMD = "pandoc \"{}\" --listings --shift-heading-level-by={} -o \"{}\"" 
+
+# 编译 tex 的命令行指令
+compileCMD = "xelatex main.tex" 
+
+# latex 目录结构，目前最多支持5层
 content = [
     "\chapter{{{}}}", "\section{{{}}}", "\subsection{{{}}}", "\subsubsection{{{}}}", "\paragraph{{{}}}"
 ]
-# latex 目录结构，目前最多支持5层
 
+# 替换文件名中的 latex 关键字
 rpDic = {
     "_": "\_"
-} # 替换文件名中的 latex 关键字
+} 
 
 cnt = 0 # 防止重复
 
